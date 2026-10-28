@@ -1,9 +1,12 @@
 'use client'
 
 import Image from 'next/image'
+import slideOne from '@/class/1.png'
+import slideTwo from '@/class/2.png'
+import slideThree from '@/class/3.png'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent, PointerEvent } from 'react'
 
 const slides = [
@@ -11,27 +14,28 @@ const slides = [
     category: 'OVERVIEW',
     title: 'Prototype Overview',
     caption: 'A conceptual view of the complete classroom setup.',
-    src: '/images/classroom-overview.png',
-    alt: 'Concept rendering of a miniature classroom, used as replaceable placeholder artwork.',
+    src: slideOne,
+    alt: 'Classroom prototype overview, image 1 of 3.',
   },
   {
     category: 'HARDWARE & SENSORS',
     title: 'Hardware & Sensors',
     caption: 'An illustrative arrangement of electronics and sensing components.',
-    src: '/images/hardware-sensors.png',
-    alt: 'Concept rendering of generic electronics and sensor components, not actual project hardware.',
+    src: slideTwo,
+    alt: 'Classroom prototype overview, image 2 of 3.',
   },
   {
     category: 'CLASSROOM AUTOMATION',
     title: 'Classroom Automation',
     caption: 'A concept for a more responsive learning environment.',
-    src: '/images/classroom-automation.png',
-    alt: 'Concept rendering of a responsive classroom environment, used as replaceable placeholder artwork.',
+    src: slideThree,
+    alt: 'Classroom prototype overview, image 3 of 3.',
   },
 ]
 
 export function ProjectCarousel() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
   const swipeStart = useRef<{ x: number; y: number } | null>(null)
   const prefersReducedMotion = useReducedMotion()
 
@@ -42,6 +46,16 @@ export function ProjectCarousel() {
   const moveSlide = (direction: -1 | 1) => {
     setActiveIndex((current) => (current + direction + slides.length) % slides.length)
   }
+
+  useEffect(() => {
+    if (isPaused) return
+
+    const intervalId = window.setInterval(() => {
+      moveSlide(1)
+    }, 4500)
+
+    return () => window.clearInterval(intervalId)
+  }, [isPaused])
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'ArrowRight') {
@@ -97,6 +111,8 @@ export function ProjectCarousel() {
           aria-label="Smart Class Automation concept gallery"
           tabIndex={0}
           onKeyDown={handleKeyDown}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
           <div
             className="carousel-stage"
