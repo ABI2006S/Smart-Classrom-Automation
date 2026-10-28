@@ -863,6 +863,129 @@ a {
   }
 }
 
+/* ── Smart Classroom Documentation Section ── */
+
+.docs-section {
+  width: min(calc(100% - 48px), 720px);
+  margin: 0 auto;
+  padding: 0 0 clamp(64px, 8vw, 96px);
+}
+
+.docs-container {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--palette-off-white);
+}
+
+.docs-h1 {
+  margin: 0 0 28px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--palette-off-white);
+}
+
+.docs-h2 {
+  margin: 40px 0 16px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+  color: var(--palette-off-white);
+}
+
+.docs-p {
+  margin: 0 0 16px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(15px, 1.2vw, 17px);
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--palette-off-white);
+}
+
+.docs-p strong {
+  font-weight: 700;
+}
+
+.docs-flow {
+  margin: 0 0 8px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(14px, 1.1vw, 16px);
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--palette-off-white);
+}
+
+.docs-flow + .docs-h2,
+.docs-flow:last-of-type {
+  margin-bottom: 0;
+}
+
+.docs-flow + h3.docs-h2 {
+  margin-top: 40px;
+}
+
+.docs-code {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.06);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 0.9em;
+  color: var(--palette-off-white);
+}
+
+.docs-list {
+  margin: 0 0 16px;
+  padding-left: 24px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(15px, 1.2vw, 17px);
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--palette-off-white);
+  list-style-type: disc;
+}
+
+.docs-list li {
+  margin-bottom: 6px;
+}
+
+.docs-list li::marker {
+  color: var(--palette-medium-gray);
+}
+
+.docs-summary {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 680px) {
+  .docs-section {
+    width: calc(100% - 36px);
+  }
+
+  .docs-h1 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    margin-bottom: 22px;
+  }
+
+  .docs-h2 {
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+
+  .docs-p,
+  .docs-list {
+    font-size: 15px;
+  }
+
+  .docs-code {
+    word-break: break-word;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
