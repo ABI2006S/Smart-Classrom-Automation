@@ -1,6 +1,7 @@
 import { ProjectCarousel } from '@/components/project-carousel'
 import { ProjectTitle } from '@/components/project-title'
 import { SmartClassroomDocs } from '@/components/smart-classroom-docs'
+import { TeamMembersSection } from '@/components/team-members-section'
 
 export default function HomePage() {
   return (
@@ -9,6 +10,7 @@ export default function HomePage() {
         <ProjectCarousel />
         <ProjectTitle />
         <SmartClassroomDocs />
+        <TeamMembersSection />
       </main>
     </div>
   )
