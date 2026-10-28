@@ -27,6 +27,8 @@ export interface CoverflowCarouselProps {
   showCaption?: boolean
   showPagination?: boolean
   showNavigation?: boolean
+  autoPlay?: boolean
+  autoPlayInterval?: number
   label?: string
   cardWidth?: string
   rotation?: number
@@ -44,6 +46,8 @@ export function CoverflowCarousel({
   showCaption = false,
   showPagination = false,
   showNavigation = true,
+  autoPlay = false,
+  autoPlayInterval = 4500,
   label = 'Team Members',
   cardWidth = 'clamp(180px, 24vw, 280px)',
   rotation = 35,
@@ -58,6 +62,7 @@ export function CoverflowCarousel({
   )
   const [dragOffset, setDragOffset] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
   const isPointerDownRef = useRef(false)
   const pointerStartRef = useRef<{ x: number; y: number; time: number } | null>(null)
   const currentDragOffsetRef = useRef(0)
@@ -91,6 +96,13 @@ export function CoverflowCarousel({
       goToSlide(activeIndex - 1)
     }
   }, [activeIndex, loop, goToSlide])
+
+  useEffect(() => {
+    if (!autoPlay || isPaused || total < 2) return
+
+    const intervalId = window.setInterval(nextSlide, autoPlayInterval)
+    return () => window.clearInterval(intervalId)
+  }, [autoPlay, autoPlayInterval, isPaused, nextSlide, total])
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'ArrowRight') {
@@ -201,6 +213,8 @@ export function CoverflowCarousel({
       aria-label={label}
       tabIndex={0}
       onKeyDown={handleKeyDown}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
       {/* 3D Coverflow Stage */}
       <div
@@ -303,7 +317,10 @@ export function CoverflowCarousel({
                     alt={slide.alt}
                     fill
                     sizes="(max-width: 640px) 75vw, (max-width: 1024px) 30vw, 280px"
-                    className="object-cover object-center pointer-events-none select-none transition-transform duration-500 group-hover:scale-105"
+                    className={cn(
+                      'object-cover object-center pointer-events-none select-none transition-[filter,transform] duration-500 group-hover:scale-105',
+                      isVisuallyActive ? 'grayscale-0' : 'grayscale'
+                    )}
                     priority={index === activeIndex}
                   />
 
@@ -387,4 +404,3 @@ export function CoverflowCarousel({
     </div>
   )
 }
-

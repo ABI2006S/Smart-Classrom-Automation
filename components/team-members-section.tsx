@@ -69,6 +69,8 @@ export function TeamMembersSection() {
       <CoverflowCarousel
         slides={teamMemberSlides}
         loop
+        autoPlay
+        autoPlayInterval={4500}
         showCaption={false}
         showPagination={false}
         showNavigation
@@ -81,4 +83,3 @@ export function TeamMembersSection() {
     </section>
   )
 }
-
