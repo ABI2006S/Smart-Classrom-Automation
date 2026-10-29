@@ -162,7 +162,6 @@ export function ProjectCarousel() {
                       priority={index === 0}
                     />
                     <div className="slide-shade" aria-hidden="true" />
-                    <p className="slide-placeholder-label">CONCEPT PLACEHOLDER</p>
                     <div className="slide-copy">
                       <p className="slide-index-label">0{index + 1} / 0{slides.length} · {slide.category}</p>
                       <h3>{slide.title}</h3>
